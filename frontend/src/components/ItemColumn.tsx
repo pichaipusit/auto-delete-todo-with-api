@@ -7,7 +7,7 @@ type ItemColumnProps = {
 };
 const ItemColumn = ({ title, items, onClick }: ItemColumnProps) => {
   return (
-    <div className="xs:w-xs sm:w-sm  max-w-md flex flex-col items-center border border-slate-200 ">
+    <div className="w-xs flex flex-col items-center border border-slate-200 ">
       <h2 className="bg-slate-100 w-full h-10 flex items-center justify-center mb-3 font-bold">
         {title}
       </h2>
