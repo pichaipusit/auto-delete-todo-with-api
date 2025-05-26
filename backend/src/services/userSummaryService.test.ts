@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import axios from "axios";
 import { getGroupedUserSummary } from "./userSummaryService";
 import { mockUsers } from "../__mocks__/mockUsers";
-import fastify from "../../server";
 
 vi.mock("axios");
 
