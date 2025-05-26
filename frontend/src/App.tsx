@@ -10,7 +10,13 @@ function App() {
     Fruit: [],
     Vegetable: [],
   });
-  const moveToRight = () => {};
+  const moveToRight = (item: FoodItem) => {
+    setFoodList((prev) => prev.filter((food) => food.id !== item.id));
+    setMovedItems((prev) => ({
+      ...prev,
+      [item.type]: [...prev[item.type], item],
+    }));
+  };
   const moveBackToMain = () => {};
 
   useEffect(() => {
@@ -27,9 +33,9 @@ function App() {
 
   return (
     <>
-      <div className="md:flex">
+      <div className="md:flex  h-screen">
         <MainList items={foodList} onClick={moveToRight} />
-        <section className="md:flex md:ml-10 mt-10 md:mt-0 gap-4">
+        <section className="md:flex md:ml-10 mt-10 md:mt-0 gap-6 space-y-8">
           {FOOD_TYPES.map((type) => (
             <ItemColumn
               key={type}
