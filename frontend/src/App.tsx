@@ -1,52 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { FOOD_TYPES, type FoodItem, type FoodType } from "./types/food.types";
+import { FOOD_TYPES } from "./types/food.types";
 import MainList from "./components/MainList";
 import ItemColumn from "./components/ItemColumn";
+import { useFoodMovement } from "./hooks/useFoodMovement";
 
 function App() {
-  const [foodList, setFoodList] = useState<FoodItem[]>([]);
-  const [movedItems, setMovedItems] = useState<Record<FoodType, FoodItem[]>>({
-    Fruit: [],
-    Vegetable: [],
-  });
-  const timers = useRef<Record<string, NodeJS.Timeout>>({});
-
-  const moveToRight = (item: FoodItem) => {
-    setFoodList((prev) => prev.filter((food) => food.id !== item.id));
-    setMovedItems((prev) => ({
-      ...prev,
-      [item.type]: [...prev[item.type], item],
-    }));
-
-    timers.current[item.id] = setTimeout(() => {
-      moveBackToMain(item);
-    }, 5000);
-  };
-  const moveBackToMain = (item: FoodItem) => {
-    const timer = timers.current[item.id];
-    if (timer) {
-      clearTimeout(timer);
-      delete timers.current[item.id];
-    }
-
-    setFoodList((prev) => [...prev, item]);
-    setMovedItems((prev) => ({
-      ...prev,
-      [item.type]: prev[item.type].filter((i) => i.id !== item.id),
-    }));
-  };
+  const { foodList, movedItems, moveToRight, moveBackToMain } =
+    useFoodMovement();
 
   useEffect(() => {
-    fetch("/data.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const withIds = data.map((item: FoodItem) => ({
-          ...item,
-          id: crypto.randomUUID(),
-        }));
-        setFoodList(withIds);
-      });
+    document.title = "Auto Delete Todo List";
   }, []);
 
   return (
