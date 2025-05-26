@@ -6,7 +6,7 @@ type MainListProps = {
 };
 const MainList = ({ items, onClick }: MainListProps) => {
   return (
-    <div className=" w-52">
+    <div className="w-52 mx-auto">
       <ul className="space-y-2">
         {items.map((item) => (
           <li key={item.name}>
