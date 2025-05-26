@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import { groupedUsersRoute } from "./src/routes/groupedUsersRoute";
+import { groupedUsersRoute } from "./routes/groupedUsersRoute";
 
 const fastify = Fastify({ logger: true });
 
